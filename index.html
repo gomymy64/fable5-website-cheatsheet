@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Материалы к Уроку Claude Fable 5 - Сайт за $10.000 Одним Промптом | Мастодонт</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Russo+One&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0806; --bg2:#14100b; --bg3:#1c1610;
+    --text:#efe8da; --dim:#9d937f;
+    --a1:#f2c94c; --a2:#ff6b2e;
+    --grad:linear-gradient(90deg,var(--a1),var(--a2));
+    --border:rgba(242,201,76,.16);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:'Manrope',sans-serif;font-size:16px;line-height:1.6;overflow-x:clip;position:relative}
+  body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(ellipse 700px 500px at 85% -5%,rgba(242,201,76,.09),transparent 60%),
+               radial-gradient(ellipse 600px 500px at -10% 30%,rgba(255,107,46,.06),transparent 60%),
+               radial-gradient(ellipse 800px 600px at 50% 110%,rgba(242,201,76,.05),transparent 60%)}
+  body::after{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.025;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  ::selection{background:rgba(242,201,76,.3)}
+  ::-webkit-scrollbar{width:10px}
+  ::-webkit-scrollbar-track{background:var(--bg)}
+  ::-webkit-scrollbar-thumb{background:var(--grad);border-radius:5px}
+
+  .wrap{max-width:1180px;margin:0 auto;padding:0 clamp(16px,4vw,40px);position:relative;z-index:1}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:100;background:rgba(10,8,6,.85);backdrop-filter:blur(14px)}
+  nav::after{content:"";display:block;height:1px;background:linear-gradient(90deg,transparent,var(--a1),var(--a2),transparent)}
+  .nav-in{max-width:1180px;margin:0 auto;padding:14px clamp(16px,4vw,40px);display:flex;justify-content:space-between;align-items:center;gap:12px}
+  .brand{font-family:'Unbounded',sans-serif;font-weight:900;font-size:15px;letter-spacing:.12em;text-transform:uppercase}
+  .brand span{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .nav-links{display:flex;gap:6px}
+  .nav-links a{color:var(--dim);text-decoration:none;font-size:13px;font-weight:600;padding:7px 14px;border-radius:20px;border:1px solid transparent;transition:.25s}
+  .nav-links a:hover{color:var(--a1);border-color:var(--border);background:var(--bg2)}
+
+  /* HERO */
+  .hero{padding:clamp(48px,8vw,96px) 0 clamp(36px,5vw,60px);text-align:center}
+  .badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.35em;text-transform:uppercase;color:var(--a1);border:1px solid var(--border);border-radius:20px;padding:8px 18px;margin-bottom:26px;background:var(--bg2)}
+  h1{font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(26px,4.6vw,54px);line-height:1.12;text-transform:uppercase;letter-spacing:.01em;max-width:960px;margin:0 auto 20px}
+  h1 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .sub{color:var(--dim);font-size:clamp(15px,1.6vw,18px);max-width:680px;margin:0 auto 30px}
+  .watch{display:inline-flex;align-items:center;gap:12px;background:var(--grad);color:#140d02;font-weight:700;font-size:15px;text-decoration:none;padding:15px 32px;border-radius:12px;transition:.25s;box-shadow:0 8px 34px rgba(242,201,76,.28)}
+  .watch:hover{transform:translateY(-2px);box-shadow:0 14px 44px rgba(255,107,46,.35)}
+  .watch svg{width:20px;height:20px;fill:#140d02}
+
+  /* SECTION HEADERS */
+  section{padding:clamp(32px,5vw,56px) 0}
+  .sec-h{display:flex;align-items:center;gap:18px;margin-bottom:30px}
+  .sec-h h2{font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(19px,2.6vw,28px);text-transform:uppercase;letter-spacing:.03em;white-space:nowrap}
+  .sec-h .line{flex:1;height:1px;background:linear-gradient(90deg,var(--a1),var(--a2),transparent)}
+
+  /* PACK */
+  .pack-note{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:22px 26px;margin-bottom:26px;position:relative;overflow:hidden}
+  .pack-note::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad)}
+  .pack-note b{color:var(--a1)}
+  .rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:14px}
+  .rule{font-size:13px;color:var(--dim);background:var(--bg3);border-radius:9px;padding:10px 14px;border:1px solid rgba(255,255,255,.04)}
+  .rule b{color:var(--text);font-weight:600}
+
+  .prompt-card{background:var(--bg2);border:1px solid rgba(255,255,255,.06);border-radius:14px;margin-bottom:22px;position:relative;overflow:hidden;box-shadow:0 0 40px rgba(242,201,76,.04)}
+  .prompt-card::before{content:"";position:absolute;top:0;bottom:0;left:0;width:3px;background:var(--grad)}
+  .prompt-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 22px;border-bottom:1px solid rgba(255,255,255,.05);flex-wrap:wrap}
+  .prompt-title{font-weight:700;font-size:15px}
+  .prompt-title em{font-style:normal;font-family:'JetBrains Mono',monospace;color:var(--a1);font-size:12px;letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:2px}
+  .copy-btn{background:var(--grad);border:none;color:#140d02;font-family:'Manrope',sans-serif;font-weight:700;font-size:13px;padding:9px 18px;border-radius:8px;cursor:pointer;transition:.2s;white-space:nowrap}
+  .copy-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(242,201,76,.3)}
+  .copy-btn.ok{background:#1f3d1f;color:#7ee787}
+  .prompt-body{padding:18px 22px;max-height:280px;overflow-y:auto}
+  .prompt-body pre{font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.6;color:#d9d0bd;white-space:pre-wrap;word-break:break-word}
+  .prompt-body::-webkit-scrollbar{width:6px}
+  .prompt-body::-webkit-scrollbar-thumb{background:rgba(242,201,76,.3);border-radius:3px}
+  .best-line{padding:0 22px 16px;font-size:13px;color:var(--dim)}
+  .best-line b{color:var(--a1);font-weight:600}
+
+  /* LEARN GRID */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+  .card{background:var(--bg2);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:24px;position:relative;overflow:hidden;transition:.25s}
+  .card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad)}
+  .card:hover{transform:translateY(-3px);border-color:var(--border)}
+  .card .ico{font-size:26px;margin-bottom:12px}
+  .card h3{font-size:15.5px;font-weight:700;margin-bottom:6px}
+  .card p{font-size:13.5px;color:var(--dim)}
+
+  /* TOOLS */
+  .tool{display:flex;justify-content:space-between;align-items:center;gap:14px;background:var(--bg2);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:16px 22px;margin-bottom:10px;text-decoration:none;color:var(--text);transition:.2s;flex-wrap:wrap}
+  .tool:hover{border-color:var(--border);background:var(--bg3)}
+  .tool .t-name{font-weight:700}
+  .tool .t-name small{display:block;font-weight:500;color:var(--dim);font-size:13px}
+  .pill{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;padding:5px 12px;border-radius:14px;border:1px solid var(--border);color:var(--a1);white-space:nowrap}
+
+  /* STEPS */
+  .step{background:var(--bg2);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:clamp(22px,3vw,34px);margin-bottom:22px;position:relative;overflow:hidden}
+  .step::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad)}
+  .step::after{content:"";position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(242,201,76,.08),transparent 70%);pointer-events:none}
+  .step-num{font-family:'Unbounded',sans-serif;font-weight:900;font-size:clamp(30px,4vw,44px);background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1;margin-bottom:10px}
+  .step h3{font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(16px,2vw,21px);margin-bottom:14px;text-transform:uppercase;letter-spacing:.02em}
+  .step ul{list-style:none;margin:0 0 6px}
+  .step li{padding:7px 0 7px 26px;position:relative;font-size:15px}
+  .step li::before{content:"▸";position:absolute;left:2px;color:var(--a2);font-weight:700}
+  .step li code{font-family:'JetBrains Mono',monospace;font-size:13px;background:var(--bg3);border:1px solid rgba(255,255,255,.07);border-radius:6px;padding:2px 8px;color:var(--a1)}
+  .mini-code{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#0d0a07;border:1px solid rgba(255,255,255,.07);border-left:3px solid var(--a1);border-radius:10px;padding:14px 18px;margin:12px 0;flex-wrap:wrap}
+  .mini-code pre{font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--a1);white-space:pre-wrap;word-break:break-all}
+  .hint{background:rgba(242,201,76,.06);border:1px solid var(--border);border-radius:10px;padding:14px 18px;font-size:14px;margin-top:12px}
+  .hint b{color:var(--a1)}
+  .settings{font-size:13.5px;color:var(--dim);margin-top:12px;padding-top:12px;border-top:1px dashed rgba(255,255,255,.08)}
+  .settings b{color:var(--text)}
+
+  /* LINKS */
+  .link-card{display:flex;align-items:center;gap:16px;background:var(--bg2);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:18px 22px;margin-bottom:10px;text-decoration:none;color:var(--text);transition:.2s}
+  .link-card:hover{border-color:var(--border);transform:translateX(4px)}
+  .link-card .ico{font-size:22px}
+  .link-card .l-name{font-weight:700}
+  .link-card .l-name small{display:block;font-weight:500;color:var(--dim);font-size:13px}
+  .link-card .arrow{margin-left:auto;color:var(--a1)}
+
+  /* CTA */
+  @keyframes glowPulse{0%,100%{box-shadow:0 0 40px rgba(242,201,76,.12)}50%{box-shadow:0 0 70px rgba(255,107,46,.22)}}
+  .cta{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:clamp(26px,4vw,44px);position:relative;overflow:hidden;animation:glowPulse 3s infinite}
+  .cta::before{content:"";position:absolute;top:-80px;left:-80px;width:260px;height:260px;background:radial-gradient(circle,rgba(242,201,76,.13),transparent 70%);pointer-events:none}
+  .cta::after{content:"";position:absolute;bottom:-80px;right:-80px;width:260px;height:260px;background:radial-gradient(circle,rgba(255,107,46,.12),transparent 70%);pointer-events:none}
+  .cta h2{font-family:'Russo One',sans-serif;font-size:clamp(20px,3vw,32px);text-transform:uppercase;letter-spacing:.02em;margin-bottom:26px;line-height:1.25}
+  .cta h2 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .cta-cols{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-bottom:28px;position:relative;z-index:1}
+  .cta-col h4{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--a1);margin-bottom:14px}
+  .cta-col div{padding:7px 0;font-size:15px}
+  .cta-foot{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;position:relative;z-index:1}
+  .cta-foot .free{font-size:16px;font-weight:600;color:var(--dim)}
+  .cta-foot .free b{color:var(--a1)}
+  .cta-btn{display:inline-block;background:var(--grad);color:#140d02;font-weight:800;font-size:16px;text-decoration:none;padding:16px 36px;border-radius:12px;transition:.25s}
+  .cta-btn:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(242,201,76,.35)}
+
+  /* FOOTER */
+  footer{border-top:1px solid rgba(255,255,255,.06);padding:34px 0 44px;text-align:center;margin-top:40px}
+  footer .brand{font-size:17px;margin-bottom:6px}
+  footer p{color:var(--dim);font-size:14px;margin-bottom:14px}
+  footer a{color:var(--a1);text-decoration:none;font-weight:600;font-size:14px}
+
+  @media (max-width:768px){
+    .nav-links{display:none}
+    .cta-cols{grid-template-columns:1fr}
+    .prompt-head{flex-direction:column;align-items:flex-start}
+  }
+  @media (min-width:2200px){
+    .wrap,.nav-in{max-width:1380px}
+    body{font-size:17px}
+  }
+</style>
+</head>
+<body>
+
+<nav><div class="nav-in">
+  <div class="brand"><span>МАСТОДОНТ</span></div>
+  <div class="nav-links">
+    <a href="#pack">Пак промптов</a><a href="#learn">Чему научишься</a><a href="#tools">Инструменты</a><a href="#steps">Шаги</a><a href="#links">Ссылки</a>
+  </div>
+</div></nav>
+
+<div class="wrap">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="badge">Материалы к уроку</div>
+  <h1>Claude Fable 5 собрал сайт за <span class="g">$10.000</span> за минуты</h1>
+  <p class="sub">Все промпты, ссылки и шаги из видео - в одном месте. Пак из 10 промптов сразу под этим блоком, копируй и собирай.</p>
+  <a class="watch" href="https://youtu.be/hvhcxkkWI0A" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.3 31.3 0 0 0 0 12a31.3 31.3 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.3 31.3 0 0 0 24 12a31.3 31.3 0 0 0-.5-5.8zM9.6 15.6V8.4L15.8 12z"/></svg>
+    Смотреть видео
+  </a>
+</div>
+
+<!-- PACK -->
+<section id="pack">
+  <div class="sec-h"><h2>🎁 Пак: сайт одним промптом</h2><div class="line"></div></div>
+
+  <div class="pack-note">
+    <b>Как пользоваться (5 правил из видео):</b>
+    <div class="rules">
+      <div class="rule"><b>1. Вставляй целиком.</b> Первый раз - без правок, потом кастомизируй</div>
+      <div class="rule"><b>2. Hero-референс не выкидывай.</b> Одно hero-изображение держит продукт одинаковым во всех кадрах</div>
+      <div class="rule"><b>3. Сцепка клипов.</b> Финальный кадр клипа = стартовый кадр следующего, получается один дубль</div>
+      <div class="rule"><b>4. Считай кредиты.</b> 1080p стоит в 2 раза дороже 720p - тесты гоняй на 720p</div>
+      <div class="rule"><b>5. Промпт русский, сайт английский.</b> Нужен русский сайт - допиши строку "весь текст на сайте пиши на русском"</div>
+    </div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-head"><div class="prompt-title"><em>💬 Промпт 01 - Люксовый продукт</em>Часы: облёт + макро + сборка</div><button class="copy-btn" data-copy="p1">Скопировать</button></div>
+    <div class="prompt-body"><pre id="p1">Собери мне кинематографичный сайт с 3D-скроллом уровня Awwwards для AURUM &amp; NOIR, вымышленного швейцарского бренда люксовых часов, который выпускает турбийон-хронограф "Eclipse".
+
+ВИЗУАЛ - генерируй моделью Seedance 2.0 через Higgsfield MCP (std, 1080p, 16:9, без звука, ~8 сек на клип). Сначала сгенерируй ОДНО hero-изображение часов: корпус из шлифованного чёрного титана, золотой турбийон виден сквозь сапфировое стекло. Передавай его референсом в каждый клип, чтобы продукт был идентичным во всех кадрах:
+1. ОБЛЁТ - медленный, идеально плавный студийный облёт часов на 360°, часы парят в чёрной пустоте, драматичный контровой свет, лёгкая золотая пыль.
+2. МАКРО-ПРОЛЁТ - экстремально крупный проезд по циферблату: гравировка индексов, вращение каретки турбийона, свет бежит по шлифованному металлу.
+3. СБОРКА - часы собирают сами себя из парящих деталей: шестерни, пружины, безель, ремешок сходятся в готовое изделие.
+
+САЙТ - облёт скролл-листается как последовательность кадров на canvas: прокрутка вращает часы. Lenis smooth scroll, тексты появляются по позиции скролла. Секции: кинематографичный hero с названием бренда → история "Crafted in Darkness" → макро-детали на клипе 2 → инженерный разбор со спеками (42 мм, титан grade-5, 72 ч запаса хода, 217 компонентов) → "Edition of 88 - $48,000" → CTA приватного листа ожидания. Почти чёрный фон, золотой акцент, контрастная антиква + минималистичный гротеск. Тексты сайта на английском: тихо, дорого, очень мало слов. Запусти на localhost и проверь каждую скролл-анимацию, прежде чем сказать «готово».</pre></div>
+    <div class="best-line"><b>Под себя:</b> замени часы на любой hero-продукт - наушники, парфюм, кроссовок. Структуру «облёт + макро + сборка» не трогай.</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-head"><div class="prompt-title"><em>💬 Промпт 02 - Сторителлинг</em>Погружение на дно: ABYSSAL (из видео)</div><button class="copy-btn" data-copy="p2">Скопировать</button></div>
+    <div class="prompt-body"><pre id="p2">Собери мне кинематографичный сайт с 3D-скроллом уровня Awwwards для ABYSSAL, вымышленной компании глубоководных экспедиций, которая раз в год спускает 8 гражданских на дно океана на борту субмарины EREBUS.
+
+ВИЗУАЛ - Seedance 2.0 через Higgsfield MCP (std, 1080p, 16:9, без звука, ~8-10 сек на клип). Сначала сгенерируй ОДНО hero-изображение EREBUS: гладкий глубоко-чёрный корпус, светящееся циановое кольцо иллюминатора, два прожектора. Референсь его в каждом клипе. КРИТИЧНО: генерируй клипы по порядку и используй ФИНАЛЬНЫЙ кадр каждого клипа как СТАРТОВЫЙ кадр следующего (start_image / end_image у Seedance), чтобы все пять склеились в одно непрерывное погружение:
+1. ПОВЕРХНОСТЬ - рассвет над открытым океаном с воздуха; EREBUS уходит под волны, финал полностью под водой в залитой солнцем синеве.
+2. СОЛНЕЧНАЯ ЗОНА - спуск сквозь столбы света и пузыри, силуэт кита проплывает мимо; синева густеет.
+3. СУМЕРЕЧНАЯ ЗОНА - свет умирает почти до черноты, призрачные медузы дрейфуют, вспыхивают прожекторы.
+4. ПОЛУНОЧНАЯ ЗОНА - полная тьма; биолюминесцентные существа искрят вокруг корпуса, как звёздное поле.
+5. ДНО - прожекторы скользят по гидротермальным источникам; EREBUS замирает на финальном hero-кадре.
+
+САЙТ - склей пять клипов и скролл-листай всё погружение как кадры на canvas: скролл вниз И ЕСТЬ погружение. Фиксированный HUD-глубиномер от 0 м до 3 800 м с названиями зон. Секции по зонам: hero ("How deep will you go?") → один яркий факт на зону → спеки EREBUS → "8 seats. $250,000. Departing March 2027." → CTA "Join the Manifest". Фон градится из глубокого нэйви в чистый чёрный с глубиной; биолюминесцентный циановый акцент; тонкий технический гротеск с HUD-микродеталями. Тексты сайта на английском. Запусти на localhost и проверь, что скраб бесшовный по всем пяти клипам, прежде чем сказать «готово».</pre></div>
+    <div class="best-line"><b>Под себя:</b> та же сцепка работает для подъёма в горы, запуска ракеты, пещеры или «путешествия по производству» любого бренда.</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-head"><div class="prompt-title"><em>💬 Промпт 03 - Личное портфолио</em>В главной роли ты (+1 фото)</div><button class="copy-btn" data-copy="p3">Скопировать</button></div>
+    <div class="prompt-body"><pre id="p3">Собери мне кинематографичный сайт-ПОРТФОЛИО с 3D-скроллом уровня Awwwards для меня - [ТВОЁ ИМЯ]. Изучи стиль победителя Awwwards Site of the Year 2025 (Lando Norris): огромная жирная типографика, кинематографичные скролл-сцены и центральный 3D-элемент, который вращается при прокрутке. В моей версии центральный элемент - Я.
+
+ВИЗУАЛ - Seedance 2.0 через Higgsfield MCP (std, 1080p, 16:9, без звука, ~8 сек на клип). Сначала загрузи моё приложенное фото в Higgsfield и передавай его референсом личности в КАЖДУЮ генерацию, чтобы лицо было консистентным. Одежду держи одинаковой во всех клипах: [чёрная футболка, тёмная рубашка поверх]. Три клипа:
+1. ОБЛЁТ - я стою уверенно, руки скрещены, в студии-чёрной пустоте с [изумрудным] контровым светом; камера делает один медленный облёт вокруг меня на 360°.
+2. СОЗДАТЕЛЬ - я сижу за тёмным столом в окружении парящих голографических экранов с моими работами; медленный кинематографичный наезд.
+3. ФИНАЛ - я иду на камеру по тёмной галерее со светящимися экранами по стенам и замираю в hero-позе.
+
+САЙТ - облёт скролл-листается кадрами на canvas: "[ТВОЁ ИМЯ]" гигантским дисплейным шрифтом собирается по буквам, подзаголовок "[чем занимаешься, одной строкой]". Анимированная полоса статистики со счётчиками по скроллу: [твои 3-5 лучших цифр - подписчики, клиенты, проекты, выручка]. Секция ТРИ СТОЛПА поверх клипа 2, раскрывающая [три твоих главных оффера] по одному. Секция РАБОТЫ поверх клипа 3 с карточками [твоих 3 лучших проектов]: одна строка питча и hover-движение. ФИНАЛ: "[твой главный CTA]" с двумя кнопками плюс футер со ссылками на [твои соцсети]. Чернильно-чёрный фон, [изумрудный] акцент, кремовая типографика, жирный сжатый дисплейный шрифт, кинетический текст, лёгкое зерно, Lenis smooth scroll. Тексты сайта на английском. Запусти на localhost и проверь, что скраб облёта масляно-плавный, прежде чем сказать «готово».</pre></div>
+    <div class="best-line"><b>Под себя:</b> всё в [скобках] - поля для заполнения. Сгенерируй 2-3 дубля облёта и оставь тот, где сходство держится весь оборот.</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-head"><div class="prompt-title"><em>💬 Промпт 04 - E-commerce</em>Дроп: магазин стритвира</div><button class="copy-btn" data-copy="p4">Скопировать</button></div>
+    <div class="prompt-body"><pre id="p4">Собери мне кинематографичный e-commerce сайт уровня Awwwards для ONYX SUPPLY, вымышленного премиального стритвир-лейбла, который выпускает "Midnight Drop": плотное худи, карго-штаны и пуховик с хромовыми акцентами.
+
+ВИЗУАЛ - Seedance 2.0 через Higgsfield MCP (std, 1080p, без звука). Сначала сгенерируй ОДНО лукбук-изображение модели в полном луке: матово-чёрные вещи, хромовые молнии, съёмка на туманной крыше ночью. Референсь его в каждом клипе для консистентности одежды:
+1. HERO - 16:9, модель медленно идёт на камеру сквозь туман на крыше, неоновое зарево города позади, ветер шевелит ткань.
+2. ВРАЩЕНИЯ ТОВАРОВ - три отдельных клипа 1:1: каждая вещь на невидимом манекене делает чистый оборот на 360° на бетонно-сером студийном фоне.
+3. МАКРО ТКАНИ - 16:9, экстремально крупный проезд по строчке, зубьям молний и тиснёному лого.
+
+САЙТ - hero скролл-листает проход модели, поверх "ONYX SUPPLY - MIDNIGHT DROP" гигантским шрифтом и живой таймер обратного отсчёта до дропа. Сетка товаров: три карточки, при наведении автоплей вращения, у каждой название, цена ($180 / $210 / $340), выбор размера и "Add to Cart" (нерабочая демо-корзина подойдёт). Секция макро-ткани с манифестом качества "Built heavy. Cut clean.". Липкая иконка корзины, бегущая строка с названиями товаров между секциями, email-захват "Notify me" для распроданных размеров. Дизайн: бетонный серый + матовый чёрный, один кислотно-зелёный акцент, брутальная сжатая типографика. Тексты сайта на английском. Запусти на localhost и проверь hover-автоплей на каждой карточке, прежде чем сказать «готово».</pre></div>
+    <div class="best-line"><b>Под себя:</b> для реального магазина замени сгенерированные вещи фото твоих товаров как референсами - Seedance анимирует ТВОЙ продукт.</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-head"><div class="prompt-title"><em>💬 Промпт 05 - Локальный бизнес</em>Ресторан: огонь и стейк</div><button class="copy-btn" data-copy="p5">Скопировать</button></div>
+    <div class="prompt-body"><pre id="p5">Собери мне кинематографичный сайт уровня Awwwards для EMBER &amp; OAK, вымышленного стейкхауса на живом огне в [ГОРОД].
+
+ВИЗУАЛ - Seedance 2.0 через Higgsfield MCP (std, 1080p, 16:9, без звука, ~8 сек на клип):
+1. HERO - слоумо-макро: рибай жарится над открытым пламенем, угли взлетают в темноту, кинематографичный янтарный свет.
+2. ЗАЛ - медленный проезд по атмосферному залу в золотой час: кожаные диваны, свечи, бармен на фоне смешивает коктейль.
+3. РЕМЕСЛО - вид сверху: руки шефа выкладывают блюдо, пар вьётся вверх, тёмный сланцевый стол.
+
+САЙТ - полноэкранный hero скролл-листает клип с огнём, поверх элегантной антиквой собирается "EMBER &amp; OAK" и ниже "Wood fire. Nothing else.". Секции: история поверх клипа 2 со сдержанным текстом ("Six dishes. One fire.") → меню в две колонки (Fire / Field), названия блюд и цены изящной типографикой → секция приватных ужинов поверх клипа 3 → часы + карта + CTA "Reserve a Table" с простой формой (дата и число гостей). Дизайн: почти чёрный фон, тёплый кремовый текст, акцент цвета углей, плёночное зерно, медленный параллакс на секционных изображениях. Тон текста: скупой, уверенный, чувственный. Тексты сайта на английском. Мобильная версия: меню складывается в одну изящную колонку. Запусти на localhost и проверь hero-скраб и форму брони, прежде чем сказать «готово».</pre></div>
+    <div class="best-line"><b>Под себя (или на продажу):</b> замени на реальный ресторан, скорми их меню и фото еды как референсы. Такой сайт - чек $2.000-5.000.</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-head"><div class="prompt-title"><em>💬 Промпт 06 - Недвижимость</em>Объект: люксовый пентхаус</div><button class="copy-btn" data-copy="p6">Скопировать</button></div>
+    <div class="prompt-body"><pre id="p6">Собери мне кинематографичный сайт одного объекта уровня Awwwards для THE MERIDIAN, вымышленного пентхауса за $12.5M на 60-м этаже в [ГОРОД].
+
+ВИЗУАЛ - Seedance 2.0 через Higgsfield MCP (std, 1080p, 16:9, без звука, ~8-10 сек на клип). Сначала сгенерируй ОДНО hero-изображение башни в сумерках и держи её архитектуру консистентной во всех клипах. Клипы 2-4 сцепляй: финальный кадр клипа - стартовый кадр следующего, чтобы тур был непрерывным:
+1. ПОДЛЁТ - дрон-кадр по дуге вокруг стеклянной башни в сумерках, внизу загораются огни города.
+2. ПРИБЫТИЕ - камера скользит из приватного лифта в огромную гостиную: панорамные окна в пол, итальянский мрамор, вспыхивает камин.
+3. АНФИЛАДА - непрерывный проезд через кухню шефа и мастер-спальню к светящимся дверям террасы.
+4. ТЕРРАСА - выход на круговую террасу ночью: инфинити-бассейн отражает скайлайн, таймлапс облаков.
+
+САЙТ - скролл-листай сцепленный тур: прокрутка проводит покупателя по дому. Фиксированный элегантный индикатор прогресса называет каждое пространство по мере прохода. Секции: hero ("Sixty floors above everything") → полоса фактов (4 bed · 5.5 bath · 7,200 sq ft · private elevator) → галерея → список удобств с reveal-анимациями → секция цены "$12,500,000" → форма "Request a Private Showing" с карточкой агента. Дизайн: чернильный фон, акцент цвета шампанского золота, тонкая элегантная антиква, щедрый воздух. Тексты сайта на английском. Запусти на localhost и проверь, что скраб тура ощущается непрерывным, прежде чем сказать «готово».</pre></div>
+    <div class="best-line"><b>Под себя:</b> для реальных объектов используй настоящие фото как стартовые кадры - Seedance оживляет статичные фото листинга.</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-head"><div class="prompt-title"><em>💬 Промпт 07 - Авто / крупный продукт</em>Машина: электрический гиперкар</div><button class="copy-btn" data-copy="p7">Скопировать</button></div>
+    <div class="prompt-body"><pre id="p7">Собери мне кинематографичный сайт с 3D-скроллом уровня Awwwards для VANTA, вымышленного электрического гиперкара на 1 200 лошадиных сил. Строй опыт по стилю Site of the Year у Scout Motors: продукт движется по реальной местности по мере скролла, а не стоит в студии.
+
+ВИЗУАЛ - Seedance 2.0 через Higgsfield MCP (std, 1080p, 16:9, без звука, ~8 сек на клип). Сначала сгенерируй ОДНО hero-изображение машины: низкая, широкая, матово-обсидиановый кузов, тонкая световая полоса спереди. Референсь его везде. Клипы проезда сцепляй кадр-в-кадр, чтобы путь был непрерывным:
+1. РАСКРЫТИЕ - пыль оседает в белопесчаной пустыне на рассвете, открывая неподвижную VANTA; вспыхивает световая полоса.
+2. РАЗГОН - низкий tracking-кадр: она срывается через пустынную равнину, песок лентами сходит с колёс.
+3. КАНЬОН - она прошивает красный скальный каньон на скорости, камера хлёстко облетает поворот следом.
+4. НОЧНОЙ РЕЖИМ - полная тьма; только световая подпись и следы стоп-огней режут дюны под звёздами.
+
+САЙТ - скролл-листай сцепленный проезд: прокрутка ведёт машину. HUD-спидометр в углу набирает 0 → 250 mph с прогрессом скролла. Секции: hero с "VANTA" ультрашироким шрифтом → счётчики характеристик (0-60 за 1.9 с · 1 200 л.с. · запас хода 520 миль) → секция дизайна с макро-стилами → ночной режим → тизер конфигуратора с тремя цветами, перекрашивающими hero-кадр → CTA "Reserve - $1,000 deposit". Дизайн: чёрное на чёрном, электрически-циановый акцент, ультраширокая сжатая типографика, лёгкие motion-blur переходы. Тексты сайта на английском. Запусти на localhost и проверь синхрон HUD со скроллом, прежде чем сказать «готово».</pre></div>
+    <div class="best-line"><b>Под себя:</b> работает для всего, что движется - электровелосипеды, лодки, дроны. Держи структуру «раскрытие → разгон → среда → ночь».</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-head"><div class="prompt-title"><em>💬 Промпт 08 - SaaS / приложение</em>Запуск продукта: AI-платформа</div><button class="copy-btn" data-copy="p8">Скопировать</button></div>
+    <div class="prompt-body"><pre id="p8">Собери мне кинематографичный лендинг уровня Awwwards для PULSE, вымышленной ИИ-платформы аналитики, которая предсказывает отток клиентов до того, как он случится.
+
+ВИЗУАЛ - Seedance 2.0 через Higgsfield MCP (std, 1080p, 16:9, без звука, ~8 сек на клип):
+1. HERO - тёмная пустота, где тысячи светящихся частиц данных кружатся и собираются в чистый парящий дашборд с растущим графиком; график пульсирует как сердцебиение.
+2. СИГНАЛ - макро-проезд камеры по голографическим графикам и потокам чисел, одна красная аномалия вспыхивает и её ловят.
+3. ПОКОЙ - дашборд на ноутбуке в светлом минималистичном офисе, пар от кофе, всё под контролем.
+
+САЙТ - скролл-листай сборку из частиц: дашборд буквально строит себя, пока посетитель скроллит, поверх "See churn coming." гигантским шрифтом и кнопка "Start free". Секции: полоса логотипов соцдоказательства → три блока фич, закреплённых поверх клипа 2, каждый раскрывает одну строку (Predict · Explain · Prevent) → анимированные счётчики метрик (94% точность прогноза · 12 000 команд · $40M спасённой выручки) → секция скриншота продукта в браузерной рамке с мягкой тенью → таблица цен, три тарифа, средний выделен → FAQ-аккордеон → финальный CTA поверх клипа 3. Дизайн: почти чёрный hero, переходящий в белое тело, один фиолетовый акцент, чёткий геометричный гротеск, glassmorphism-карточки. Тексты сайта на английском. Запусти на localhost и проверь скраб сборки hero и переключатель цен, прежде чем сказать «готово».</pre></div>
+    <div class="best-line"><b>Под себя:</b> замени легенду PULSE своим инструментом, а клип 3 - реальной записью экрана. Сгенерированный hero + настоящие скрины = комбо доверия.</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-head"><div class="prompt-title"><em>💬 Промпт 09 - Агентство / студия</em>Креативная студия</div><button class="copy-btn" data-copy="p9">Скопировать</button></div>
+    <div class="prompt-body"><pre id="p9">Собери мне кинематографичный сайт уровня Awwwards для NOIR&amp;CO, вымышленной креативной студии, которая делает бренды «для компаний, отказывающихся быть незамеченными».
+
+ВИЗУАЛ - Seedance 2.0 через Higgsfield MCP (std, 1080p, 16:9, без звука, ~8 сек на клип):
+1. HERO - чёрные чернила распускаются и морфятся в воде в экстремальном слоумо, изредка вспыхивая золотом.
+2. РАБОТЫ - стилизованный шоурил-кадр: гигантские постеры и экраны с жирной типографикой проезжают по галерейным стенам, камера едет вбок.
+3. ЛЮДИ - силуэты маленькой команды, работающей допоздна в атмосферной студии, боке города за окном.
+
+САЙТ - hero скролл-листает расцветающие чернила позади "NOIR&amp;CO", набранного огромным шрифтом на 80% вьюпорта, под ним манифест печатает сам себя. Секции: кинетический манифест, где каждый шаг скролла вбивает на экран одно слово (LOUD. PRECISE. UNFORGETTABLE.) → сетка избранных работ из 4 вымышленных кейсов с hover-видео из кропов клипа 2 → список услуг в редакционной двухколоночной вёрстке → секция команды поверх клипа 3 → гигантский футер: "Got a brand worth fighting for?" с почтой и соцсетями. Дизайн: чистый чёрный и костяной белый, золотой акцент ровно три раза на весь сайт, микс брутального дисплейного шрифта и утончённой антиквы для текста. Курсор - маленькая золотая точка с хвостом-кольцом. Тексты сайта на английском. Запусти на localhost и проверь кинетическую секцию и hover-ривилы, прежде чем сказать «готово».</pre></div>
+    <div class="best-line"><b>Под себя:</b> это шаблон для ТВОЕГО сайта агентства, если начнёшь продавать ИИ-сайты. Кейсы замени сайтами из этого пака.</div>
+  </div>
+
+  <div class="prompt-card">
+    <div class="prompt-head"><div class="prompt-title"><em>💬 Промпт 10 - Фитнес / локальный бизнес</em>Зал: бренд силы</div><button class="copy-btn" data-copy="p10">Скопировать</button></div>
+    <div class="prompt-body"><pre id="p10">Собери мне кинематографичный сайт уровня Awwwards для FORGE, вымышленного силового зала в [ГОРОД] с девизом "Earn it.".
+
+ВИЗУАЛ - Seedance 2.0 через Higgsfield MCP (std, 1080p, 16:9, без звука, ~8 сек на клип):
+1. HERO - слоумо: атлет хлопает ладонями в магнезии в тёмном зале, облако мела распускается в единственном верхнем луче света.
+2. ЖЕЛЕЗО - макро-проезд вдоль нагруженной штанги: руки берут гриф, насечка и мел в резкой детализации, блины оседают.
+3. РАБОТА - бегун спринтует по открытой дорожке на рассвете, дыхание видно, камера низко и быстро идёт рядом.
+
+САЙТ - скролл-листай hero с облаком мела, "FORGE" вбивается массивным индустриальным шрифтом, ниже "Earn it.". Секции: философия, одна строка на шаг скролла ("No mirrors. No machines that do the work for you.") → сетка программ (Strength / Conditioning / Team) с hover-состояниями → тренеры с подъёмом карточек на hover → полоса результатов со счётчиками (участники, PRs за месяц, лет открыты) → цены, три тарифа, средний выделен, CTA "First week free" → расписание + карта + форма записи. Дизайн: угольный фон, костяной белый текст, один кроваво-красный акцент, тяжёлый сжатый дисплейный шрифт, зерно и виньетка на всех изображениях. Тексты сайта на английском. Мобильная версия: сетка программ становится свайп-карточками. Запусти на localhost и проверь hero-скраб и секцию цен, прежде чем сказать «готово».</pre></div>
+    <div class="best-line"><b>Под себя (или на продажу):</b> каждый элемент ложится на реальный зал в твоём городе - имя, расписание, цены, фото их пространства. Ещё один чек от $2.000.</div>
+  </div>
+</section>
+
+<!-- LEARN -->
+<section id="learn">
+  <div class="sec-h"><h2>Что ты научишься делать</h2><div class="line"></div></div>
+  <div class="grid">
+    <div class="card"><div class="ico">🔌</div><h3>Подключать Higgsfield MCP</h3><p>Свяжешь Claude Code с генерацией видео и картинок - всё создаётся прямо из чата</p></div>
+    <div class="card"><div class="ico">🎬</div><h3>Собирать 3D-сайты одним промптом</h3><p>Кинематографичные сайты со скролл-анимацией уровня Awwwards - без единой строчки кода</p></div>
+    <div class="card"><div class="ico">🤳</div><h3>Портфолио из одной фотографии</h3><p>Загружаешь одно фото - Fable 5 генерит все видео и собирает именной сайт</p></div>
+    <div class="card"><div class="ico">🚀</div><h3>Деплоить на домен</h3><p>Клод сам выкладывает сайт на Vercel - остаётся прицепить домен и отправлять клиентам</p></div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section id="tools">
+  <div class="sec-h"><h2>Что понадобится</h2><div class="line"></div></div>
+  <a class="tool" href="https://claude.ai/download" target="_blank" rel="noopener"><div class="t-name">Claude (десктопное приложение)<small>внутри него Claude Code - здесь вся работа</small></div><span class="pill">подписка Pro / Max</span></a>
+  <a class="tool" href="https://mcp.higgsfield.ai/" target="_blank" rel="noopener"><div class="t-name">Higgsfield MCP<small>генерация видео Seedance 2.0 и картинок</small></div><span class="pill">триал 3 дня</span></a>
+  <a class="tool" href="https://www.awwwards.com/" target="_blank" rel="noopener"><div class="t-name">Awwwards<small>референсы сайтов-победителей наград</small></div><span class="pill">бесплатно</span></a>
+  <a class="tool" href="https://vercel.com/" target="_blank" rel="noopener"><div class="t-name">Vercel<small>деплой готового сайта в интернет</small></div><span class="pill">бесплатно</span></a>
+</section>
+
+<!-- STEPS -->
+<section id="steps">
+  <div class="sec-h"><h2>Пошаговый план</h2><div class="line"></div></div>
+
+  <div class="step"><div class="step-num">01</div><h3>Поставь Claude Code и выбери модель</h3>
+    <ul>
+      <li>Скачай десктопное приложение Claude с официального сайта → открой Claude Code, новую чистую сессию</li>
+      <li>Справа внизу выбери модель <code>Fable 5</code></li>
+      <li>Уровень усилий (effort): <code>Extra</code> - лучший баланс. Чем ближе к правому краю, тем больше жрёт токенов</li>
+    </ul>
+  </div>
+
+  <div class="step"><div class="step-num">02</div><h3>Подключи Higgsfield MCP</h3>
+    <ul>
+      <li>В Claude Code: <code>Customize</code> → <code>Connectors</code> → <code>Add</code> → <code>Add custom connector</code></li>
+      <li>Название: <code>Higgsfield</code>, в поле Remote MCP server URL вставь адрес:</li>
+    </ul>
+    <div class="mini-code"><pre>https://mcp.higgsfield.ai/mcp</pre><button class="copy-btn" data-copy-text="https://mcp.higgsfield.ai/mcp">Скопировать</button></div>
+    <ul>
+      <li>Жми <code>Add</code> → тебя перекинет в браузер → жми <code>Allow</code></li>
+      <li>Убедись, что залогинен в аккаунт Higgsfield - без него авторизация не пройдёт</li>
+      <li>Проверка: наведи на коннекторы → у Higgsfield включена галочка. Видишь Disconnect - всё подключено</li>
+      <li>Higgsfield даёт триал 3 дня - привязываешь карту, платить сразу не нужно</li>
+    </ul>
+    <div class="hint">💡 <b>Между делом:</b> лично я беру на маркетплейсах готовый доступ к Higgsfield за ~$15 - выходит около 600 кредитов, хватает с запасом на все сайты из видео.</div>
+  </div>
+
+  <div class="step"><div class="step-num">03</div><h3>Найди референс (опционально)</h3>
+    <ul>
+      <li>Зайди на awwwards.com - там сайты, которые выигрывают награды</li>
+      <li>Понравился сайт → <code>Visit Site</code> → скопируй адрес → скажи Клоду «сделай мне что-то похожее на этот сайт»</li>
+      <li>Или собирай своё оригинальное по промптам из пака выше</li>
+    </ul>
+  </div>
+
+  <div class="step"><div class="step-num">04</div><h3>Собери сайт одним промптом</h3>
+    <ul>
+      <li>Скопируй промпт под свою нишу из пака (в видео - Промпт 02, субмарина)</li>
+      <li>Вставь в новую сессию Claude Code → отправь</li>
+      <li>Дальше он всё сам: проверит баланс Higgsfield, сгенерит видео через Seedance 2.0, порежет на кадры, соберёт сайт и откроет на localhost</li>
+      <li>Просто дай ему поработать пару минут</li>
+    </ul>
+    <div class="settings">⚙️ <b>Настройки генерации:</b> Seedance 2.0, std-режим, 16:9, без звука. Для тестов ставь <b>720p</b> - 1080p стоит в два раза дороже.</div>
+  </div>
+
+  <div class="step"><div class="step-num">05</div><h3>Портфолио из одной фотографии</h3>
+    <ul>
+      <li>Возьми Промпт 03 из пака → замени <code>[ТВОЁ ИМЯ]</code> на своё</li>
+      <li>Прикрепи одну свою фотографию - хорошо освещённую, анфас</li>
+      <li>Отправь - все видео и картинки он сделает сам</li>
+    </ul>
+  </div>
+
+  <div class="step"><div class="step-num">06</div><h3>Выложи в интернет</h3>
+    <ul>
+      <li>Напиши Клоду: «выложи сайт на Vercel» - он сам откроет браузер, подключится и задеплоит</li>
+      <li>Домен меняется в настройках Vercel</li>
+      <li>Не нравится что-то - гоняй туда-сюда: «замедли hero на 20%», «замени шрифт». Fable очень хорошо правит готовый сайт</li>
+    </ul>
+  </div>
+</section>
+
+<!-- LINKS -->
+<section id="links">
+  <div class="sec-h"><h2>🔗 Все ссылки</h2><div class="line"></div></div>
+  <a class="link-card" href="https://youtu.be/hvhcxkkWI0A" target="_blank" rel="noopener"><span class="ico">▶️</span><div class="l-name">Видео на YouTube<small>Claude Fable 5 Собрал Сайт за $10.000 за Минуты</small></div><span class="arrow">→</span></a>
+  <a class="link-card" href="https://claude.ai/download" target="_blank" rel="noopener"><span class="ico">🤖</span><div class="l-name">Claude - десктопное приложение<small>claude.ai/download</small></div><span class="arrow">→</span></a>
+  <a class="link-card" href="https://mcp.higgsfield.ai/" target="_blank" rel="noopener"><span class="ico">🎬</span><div class="l-name">Higgsfield MCP<small>mcp.higgsfield.ai - страница подключения</small></div><span class="arrow">→</span></a>
+  <a class="link-card" href="https://www.awwwards.com/" target="_blank" rel="noopener"><span class="ico">🏆</span><div class="l-name">Awwwards<small>awwwards.com - референсы</small></div><span class="arrow">→</span></a>
+  <a class="link-card" href="https://vercel.com/" target="_blank" rel="noopener"><span class="ico">🚀</span><div class="l-name">Vercel<small>vercel.com - деплой сайтов</small></div><span class="arrow">→</span></a>
+</section>
+
+<!-- CTA -->
+<section>
+  <div class="cta">
+    <h2>Первые деньги на ИИ - <span class="g">бесплатный интенсив</span></h2>
+    <div class="cta-cols">
+      <div class="cta-col"><h4>Внутри</h4>
+        <div>✅ Реальный демо AntiGravity вживую</div>
+        <div>✅ Софт, который за 5 минут находит компании без сайтов с готовыми контактами</div>
+        <div>✅ Кейсы учеников: первые чеки за 3 проекта без команды</div>
+      </div>
+      <div class="cta-col"><h4>Два бонуса в конце</h4>
+        <div>💰 50 скучных и самых прибыльных ниш без конкуренции</div>
+        <div>🚀 Чек-лист: первые деньги за 7 дней</div>
+      </div>
+    </div>
+    <div class="cta-foot">
+      <div class="free"><b>Бесплатно.</b> Навсегда.</div>
+      <a class="cta-btn" href="https://t.me/IntensivMastaBot" target="_blank" rel="noopener">Забрать интенсив</a>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <div class="brand"><span>МАСТОДОНТ</span></div>
+  <p>AI и нейросети - просто, по делу</p>
+  <a href="https://youtu.be/hvhcxkkWI0A" target="_blank" rel="noopener">Смотреть видео на YouTube →</a>
+</footer>
+
+<script>
+document.querySelectorAll('.copy-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var text = btn.dataset.copyText || (document.getElementById(btn.dataset.copy) || {}).innerText || '';
+    navigator.clipboard.writeText(text).then(function(){
+      var old = btn.textContent;
+      btn.textContent = '✓ Скопировано!'; btn.classList.add('ok');
+      setTimeout(function(){ btn.textContent = old; btn.classList.remove('ok'); }, 2000);
+    });
+  });
+});
+</script>
+</body>
+</html>
